@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="jp">
+
+<head></head>
+
+<body>
+    <p>録音</p>
+    <input buttonid="button1" type="button" value="rec" onclick="myfunc(this)">
+    <input buttonid="button2" type="button" value="pose" onclick="myfunc(this)">
+</body>
+<!--
+<script>
+    var connection = null;
+    var myfunc = function (button) {
+
+
+        if (button.value == "open") {
+            var handleSuccess = function (stream) {
+                var context = new AudioContext();
+                var input = context.createMediaStreamSource(stream)
+                var processor = context.createScriptProcessor(1024, 1, 1);
+
+
+                // WebSocketのコネクション
+                connection = new WebSocket('ws://hogehoge.com:8000/websocket');
+
+                input.connect(processor);
+                processor.connect(context.destination);
+
+                processor.onaudioprocess = function (e) {
+                    var voice = e.inputBuffer.getChannelData(0);
+
+                    connection.send(downsampleBuffer(voice, context.sampleRate, 16000)); // websocketで送る
+                };
+            };
+
+            navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+                .then(handleSuccess)
+
+            var time1 = function () {
+                connection.close();
+                context.close()
+            };
+
+            setTimeout(time1, 1000 * 60 * 3);
+        }
+        if (button.value == "close") {
+            connection.close();
+            context.close()
+        };
+    };
+
+    const downsampleBuffer = (buffer, sampleRate, outSampleRate) => {
+        if (outSampleRate > sampleRate) {
+            console.error('downsampling rate show be smaller than original sample rate');
+        }
+
+        const sampleRateRatio = sampleRate / outSampleRate;
+        const newLength = Math.round(buffer.length / sampleRateRatio);
+        const result = new Int16Array(newLength);
+        let offsetResult = 0;
+        let offsetBuffer = 0;
+        // bpsを縮める処理 (n byte分のデータを合算して、n byteで割る)
+        while (offsetResult < result.length) {
+            const nextOffsetBuffer = Math.round((offsetResult + 1) * sampleRateRatio);
+
+            // 次のoffsetまでの合計を保存
+            let accum = 0;
+            let count = 0;
+            for (let i = offsetBuffer; i < nextOffsetBuffer && i < buffer.length; i += 1) {
+                accum += buffer[i];
+                count += 1;
+            }
+
+            // 16進数で保存 (LINEAR16でストリーミングするため)
+            result[offsetResult] = Math.min(1, accum / count) * 0x7FFF;
+            offsetResult += 1;
+            offsetBuffer = nextOffsetBuffer;
+        }
+        return result.buffer;
+    };
+</script>
+-->
+
+</html>
+
