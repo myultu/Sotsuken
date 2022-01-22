@@ -7,7 +7,7 @@ class MyUserAdmin(UserAdmin):
     model = User
     #fieldsets = UserAdmin.fieldsets #+ ((None, {'fields': ('"anything"',)}),)
     fieldsets = (
-        (None, {'fields': ('username', 'password', 'slug')}),
+        (None, {'fields': ('username', 'password')}),
         ('Permissions', {'fields': ('is_admin', 'is_staff', 'is_superuser')}),
     )
     

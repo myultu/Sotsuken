@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 from django.core.validators import MinLengthValidator, RegexValidator
-from django.urls import reverse
 
 # Create your models here.
 class UserManager(BaseUserManager):
@@ -13,7 +12,6 @@ class UserManager(BaseUserManager):
             username=username,
         )
         user.set_password(password)
-        slug = username
         user.save(using=self._db)
         return user
 
@@ -25,7 +23,6 @@ class UserManager(BaseUserManager):
         user.is_admin=True
         user.is_staff=True
         user.is_superuser=True
-        slug = 'superuser'
         user.save(using=self._db)
         return user
 
@@ -43,10 +40,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
-    is_staff = models.BooleanField(default=False)
-    slug = models.SlugField(null=False, unique=True, default='empty')
-    
-    
+    is_staff = models.BooleanField(default=False)\
+       
     objects = UserManager()
     
     USERNAME_FIELD = 'username'
@@ -55,6 +50,3 @@ class User(AbstractBaseUser, PermissionsMixin):
     
     def __str__(self):
         return self.username
-    
-    def get_absolute_url(self):
-      return reverse('user:user_index', kwargs={'slug': self.slug})

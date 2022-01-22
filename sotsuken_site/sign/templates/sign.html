@@ -4,11 +4,11 @@
 <head></head>
 
 <body>
-    <form action="{% url 'user:user' %}" method="POST">
+    <form action="{% url 'sign:signin' %}" method="POST">
         {% csrf_token %}
         <button type="submit" name="Guest_sign_in" value="guest">Guest SignIn</button>
     </form>
-    <p>{{ error }}</p>
+    {% if error %}<p>{{ error }}</p>{% endif %}
 </body>
 
 </html>

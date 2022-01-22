@@ -15,14 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from user import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('signin.urls')),
-    path('user/', include('user.urls')),
-    path('<slug:slug>', views.user_index, name='user_index'),
-    
-    path('reco/', include('reco.urls')),
-    path('show/', include('show.urls')),
+    path('', include('sign.urls')),
+    path('<str:username>/', include('user.urls')),
 ]

@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'grareco_site',
-    'signin',
+    'sign',
     'user',
     'reco',
     'show',
@@ -134,7 +134,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_URL = 'signin:signin' 
-LOGIN_REDIRECT_URL = 'user/'
-LOGOUT_REDIRECT_URL='signin:signin'
+LOGIN_URL = 'sign:sign' 
+LOGIN_REDIRECT_URL = 'user:user'
+LOGOUT_REDIRECT_URL='sign:sign'
 

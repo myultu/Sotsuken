@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="jp">
+
+<head></head>
+
+<body>
+    <p>ログイン：{{ user.username }}</p>
+    <h3><a href="/{{ user.username }}/reco/">収録</a></h3>
+    <h3><a href="/{{ user.username }}/show/">閲覧</a></h3>
+    <form action="{% url 'sign:signout'%}" method="POST">
+        {% csrf_token %}
+        <button type="submit" name="sign_out" value="signout">SignOut</button>
+    </form>
+</body>
+
+</html>
+

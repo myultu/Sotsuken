@@ -4,9 +4,14 @@
 <head></head>
 
 <body>
-    <p>録音</p>
+    <a href="../">メニュー</a>
+    <h2>録音</h2>
     <input buttonid="button1" type="button" value="rec" onclick="myfunc(this)">
     <input buttonid="button2" type="button" value="pose" onclick="myfunc(this)">
+
+    {% for sentence in sentences %}
+        <p>{{ sentence }}</p>
+    {% endfor %}
 </body>
 <!--
 <script>
